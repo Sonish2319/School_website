@@ -1,0 +1,19 @@
+{
+  "name": "school_website",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev:cms": "npm run dev --prefix apps/cms",
+    "dev:frontend": "npm run dev --prefix apps/frontend",
+    "dev:backend": "node backend/app.js",
+    "dev:all": "concurrently \"npm run dev:cms\" \"npm run dev:frontend\" \"npm run dev:backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
