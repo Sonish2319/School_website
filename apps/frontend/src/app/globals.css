@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Acumin Pro';
+  src: url('/fonts/AcuminPro-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Acumin Pro', sans-serif;
+}

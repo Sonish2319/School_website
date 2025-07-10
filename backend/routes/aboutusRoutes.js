@@ -1,0 +1,32 @@
+const express = require('express');
+const router = express.Router();
+const upload = require('../middleware/upload');
+const controller = require('../controllers/aboutusController');
+
+// POST multiple images under the field name 'images', max 5 files
+// router.post('/', upload.array('image', 5), controller.createAboutUs);
+
+router.post('/', 
+    upload.array('image', 5), // multer processes files first
+    (req, res, next) => {
+      console.log('Fields:', req.body);
+      console.log('Files:', req.files);
+      next();
+    },
+    controller.createAboutUs
+  );
+  
+
+// GET all about us entries
+router.get('/', controller.getAllAboutUs);
+
+// GET one about us entry by id
+router.get('/:id', controller.getAboutUsById);
+
+// PUT update with single image upload under 'image' field
+router.put('/:id', upload.single('image'), controller.updateAboutUs);
+
+// DELETE about us entry by id
+router.delete('/:id', controller.deleteAboutUs);
+
+module.exports = router;
