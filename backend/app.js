@@ -3,6 +3,11 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const aboutusRoutes = require('./routes/aboutusRoutes');
+const noticeRoutes = require('./routes/noticeRoutes');
+const sliderRoutes = require('./routes/sliderRoutes');
+const admissionRoutes = require('./routes/admissionRoutes');
+
+
 
 const app = express();
 
@@ -15,5 +20,8 @@ app.get('/api/test', (req, res) => res.send('API working'));
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/aboutus', aboutusRoutes);
+app.use('/api/notices', noticeRoutes);
+app.use('/api/sliders', sliderRoutes);
+app.use('/api/admissions', admissionRoutes);
 
 module.exports = app;
