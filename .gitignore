@@ -33,3 +33,7 @@ Thumbs.db
 # Optional: lock files (if not using consistently)
 # package-lock.json
 # yarn.lock
+
+
+/uploads
+/uploads/*
