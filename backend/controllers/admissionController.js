@@ -2,8 +2,32 @@ const { Admission } = require('../models');
 
 exports.createAdmission = async (req, res) => {
   try {
-    const { title, shortSubtext, description, startDate, endDate, programsOffered, eligibilityCriteria, importantNotices, admissionOpenDate, entranceTestDate, orientationDay, status } = req.body;
+    const {
+      title,
+      shortSubtext,
+      description,
+      startDate,
+      endDate,
+      programsOffered,
+      eligibilityCriteria,
+      importantNotices,
+      admissionOpenDate,
+      entranceTestDate,
+      orientationDay,
+      status
+    } = req.body;
 
+    // Parse programsOffered safely
+    let parsedPrograms = {};
+    try {
+      parsedPrograms = typeof programsOffered === "string"
+        ? JSON.parse(programsOffered)
+        : programsOffered;
+    } catch (err) {
+      return res.status(400).json({ message: "Invalid JSON in programsOffered" });
+    }
+
+    // Handle uploaded file for image if provided
     const image = req.file ? req.file.filename : null;
 
     const admission = await Admission.create({
@@ -14,7 +38,7 @@ exports.createAdmission = async (req, res) => {
       endDate,
       image,
       icons: req.body.icons,
-      programsOffered: JSON.parse(programsOffered),
+      programsOffered: parsedPrograms,
       eligibilityCriteria,
       importantNotices,
       admissionOpenDate,
@@ -23,13 +47,20 @@ exports.createAdmission = async (req, res) => {
       status,
     });
 
-    
+    return res.status(201).json({
+      message: "Admission created successfully",
+      admission,
+    });
 
-    res.status(201).json(admission);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    console.error("Error creating admission:", error);
+    return res.status(500).json({
+      message: "Internal server error while creating admission",
+      error: error.message,
+    });
   }
 };
+
 
 exports.getAllAdmissions = async (req, res) => {
   try {

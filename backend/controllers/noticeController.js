@@ -6,6 +6,8 @@ exports.createNotice = async (req, res) => {
   try {
     const { title, description, status } = req.body;
     const file = req.file ? req.file.filename : null;
+    // const file = req.file ? req.file.path : null;
+
 
     const notice = await Notice.create({
       title,

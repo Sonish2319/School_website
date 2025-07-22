@@ -3,7 +3,8 @@ const {
   getUsers,
   getCurrentUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserById
 } = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 const { checkRole } = require('../middleware/roleMiddleware');
@@ -11,6 +12,7 @@ const { checkRole } = require('../middleware/roleMiddleware');
 const router = express.Router();
 
 router.get('/', protect, checkRole('admin'), getUsers);         // Admin-only
+router.get('/:id', protect, checkRole('admin'), getUserById);
 router.delete('/:id', protect, checkRole('admin'), deleteUser); // Admin-only
 router.get('/me', protect, getCurrentUser);                     // Any logged-in user
 router.put('/:id', protect, updateUser);                        // Optional role check
