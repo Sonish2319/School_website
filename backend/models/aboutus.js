@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    image: {
-      type: DataTypes.STRING, // This will store the image URL/path
+images: {
+      type: DataTypes.TEXT, // You could also use DataTypes.JSON if your DB supports it
       allowNull: true
     },
     status: {

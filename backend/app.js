@@ -6,7 +6,7 @@ const aboutusRoutes = require('./routes/aboutusRoutes');
 const noticeRoutes = require('./routes/noticeRoutes');
 const sliderRoutes = require('./routes/sliderRoutes');
 const admissionRoutes = require('./routes/admissionRoutes');
-
+const galleryRoutes = require('./routes/galleryRoutes');
 
 
 const path = require("path");
@@ -27,5 +27,6 @@ app.use('/api/aboutus', aboutusRoutes);
 app.use('/api/notices', noticeRoutes);
 app.use('/api/sliders', sliderRoutes);
 app.use('/api/admissions', admissionRoutes);
+app.use('/api/gallery', galleryRoutes);
 
 module.exports = app;

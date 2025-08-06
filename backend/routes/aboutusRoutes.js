@@ -8,11 +8,6 @@ const controller = require('../controllers/aboutusController');
 
 router.post('/', 
     upload.array('image', 5), // multer processes files first
-    (req, res, next) => {
-      console.log('Fields:', req.body);
-      console.log('Files:', req.files);
-      next();
-    },
     controller.createAboutUs
   );
   
@@ -24,7 +19,12 @@ router.get('/', controller.getAllAboutUs);
 router.get('/:id', controller.getAboutUsById);
 
 // PUT update with single image upload under 'image' field
-router.put('/:id', upload.single('image'), controller.updateAboutUs);
+// router.put('/:id', upload.single('image'), controller.updateAboutUs);
+
+router.put('/:id', 
+  upload.array('image', 5), // multer processes files first
+  controller.updateAboutUs
+);
 
 // DELETE about us entry by id
 router.delete('/:id', controller.deleteAboutUs);
