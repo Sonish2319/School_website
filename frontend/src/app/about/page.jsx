@@ -1,302 +1,128 @@
-// import React from 'react';
-
-// const AboutPage = () => {
-//   return (
-//     <div className="w-full bg-white text-gray-800 py-12 px-4 md:px-10 lg:px-20">
-//       <div className="max-w-5xl mx-auto">
-//         {/* Heading */}
-//         <div className="mb-10 text-center">
-//           <h1 className="text-4xl font-bold mb-4">About Our School</h1>
-//           <p className="text-lg text-gray-600">
-//             Nurturing minds, shaping futures — one student at a time.
-//           </p>
-//         </div>
-
-//         {/* Image & Description */}
-//         <div className="flex flex-col lg:flex-row items-start gap-8 mb-14">
-//           <div className="flex-1">
-//             <img
-//               src="/images/school-building.jpg"
-//               alt="School Building"
-//               className="rounded-lg shadow-md w-full h-auto object-cover"
-//             />
-//           </div>
-//           <div className="flex-1 text-[16px] leading-relaxed text-justify text-gray-700">
-//             <p className="mb-4">
-//               Established in 2001, Sunrise International School is dedicated to providing a safe,
-//               supportive, and challenging learning environment. We believe in academic excellence,
-//               personal integrity, and lifelong learning.
-//             </p>
-//             <p>
-//               Our campus offers modern classrooms, experienced faculty, and a diverse set of
-//               extracurricular activities that nurture creativity and character in every student.
-//             </p>
-//           </div>
-//         </div>
-
-//         {/* Mission, Vision, Goal */}
-//         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
-//           <div className="bg-red-100 rounded-xl p-6 shadow-md">
-//             <h3 className="text-xl font-semibold mb-2 text-red-700">Our Mission</h3>
-//             <p className="text-gray-700">
-//               To foster a love for learning and help students achieve their full potential in a
-//               values-driven environment.
-//             </p>
-//           </div>
-//           <div className="bg-green-100 rounded-xl p-6 shadow-md">
-//             <h3 className="text-xl font-semibold mb-2 text-green-700">Our Vision</h3>
-//             <p className="text-gray-700">
-//               To become a leading educational institution that produces compassionate, responsible,
-//               and globally aware citizens.
-//             </p>
-//           </div>
-//           <div className="bg-blue-100 rounded-xl p-6 shadow-md">
-//             <h3 className="text-xl font-semibold mb-2 text-blue-700">Our Goal</h3>
-//             <p className="text-gray-700">
-//               To provide holistic education that balances academics, values, sports, and the arts.
-//             </p>
-//           </div>
-//         </div>
-
-//         {/* Core Values */}
-//         <div className="mb-10">
-//           <h2 className="text-2xl font-semibold mb-4">Core Values</h2>
-//           <ul className="list-disc list-inside text-gray-700 space-y-2">
-//             <li>Integrity and Honesty</li>
-//             <li>Respect for All</li>
-//             <li>Commitment to Excellence</li>
-//             <li>Empathy and Compassion</li>
-//             <li>Responsibility and Leadership</li>
-//           </ul>
-//         </div>
-
-//         {/* Contact Info */}
-//         <div className="border-t pt-6 mt-10 text-center text-sm text-gray-600">
-//           <p>📍 Location: Sunrise International School, Kathmandu, Nepal</p>
-//           <p>📞 Phone: +977-1-1234567 | ✉️ Email: info@sunriseschool.edu.np</p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AboutPage;
+// 'use client';
 
 
-// import React from 'react';
-// import { Calendar, Users, Award, BookOpen, MapPin } from 'lucide-react';
+// import { useState, useEffect } from 'react';
+// import Image from 'next/image';
+// import Link from 'next/link';
 
-// const AboutUs = () => {
-//   const timelineEvents = [
-//     {
-//       year: "Jan 1981",
-//       title: "School Founded",
-//       description: "Vibhuti Vidhya Mandir School is renowned as pioneers and leaders in the field of education committed to educate and transform by inspiring.",
-//       image: "/api/placeholder/300/200"
-//     },
-//     {
-//       year: "Jan 1981",
-//       title: "School Founded",
-//       description: "Vibhuti Vidhya Mandir School is renowned as pioneers and leaders in the field of education committed to educate and transform by inspiring.",
-//       image: "/api/placeholder/300/200"
-//     },
-//     {
-//       year: "Jan 1981",
-//       title: "School Founded",
-//       description: "Vibhuti Vidhya Mandir School is renowned as pioneers and leaders in the field of education committed to educate and transform by inspiring.",
-//       image: "/api/placeholder/300/200"
-//     },
-//     {
-//       year: "Jan 1981",
-//       title: "School Founded",
-//       description: "Vibhuti Vidhya Mandir School is renowned as pioneers and leaders in the field of education committed to educate and transform by inspiring.",
-//       image: "/api/placeholder/300/200"
-//     }
-//   ];
+// const BASE_URL  = 'http://localhost:9000'
+// const AboutAcademy = () => {
+//   console.log('AboutAcademy component rendered');
 
-//   return (
-//     <div className="min-h-screen bg-white">
-
-//       {/* Hero Section */}
-//       <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <div className="text-center mb-16">
-//             <h2 className="text-4xl font-bold text-gray-900 mb-4">A Closer Look at Our Journey</h2>
-//             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-//               Vibhuti Vidhya Mandir School is renowned as pioneers and leaders in the field of education 
-//               committed to educate and transform by inspiring.
-//             </p>
-//           </div>
-
-//           {/* Image Gallery */}
-//           <div className="grid md:grid-cols-2 gap-8 mb-16">
-//             <div className="relative h-64 rounded-lg overflow-hidden shadow-lg">
-//               <img 
-//                 src="/api/placeholder/500/300" 
-//                 alt="School Building" 
-//                 className="w-full h-full object-cover"
-//               />
-//               <div className="absolute top-4 left-4">
-//                 <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
-//                   <span className="text-white text-xs font-bold">V</span>
-//                 </div>
-//               </div>
-//             </div>
-//             <div className="relative h-64 rounded-lg overflow-hidden shadow-lg">
-//               <img 
-//                 src="/api/placeholder/500/300" 
-//                 alt="School Campus" 
-//                 className="w-full h-full object-cover"
-//               />
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Principal's Message */}
-//       <section className="py-16 bg-gray-50">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <div className="grid lg:grid-cols-2 gap-12 items-center">
-//             <div>
-//               <blockquote className="text-2xl font-medium text-gray-900 mb-6 italic">
-//                 "We believe in the value of knowledge, the power of teaching and research, and the ways that what we do here can benefit society."
-//               </blockquote>
-//               <div className="border-l-4 border-red-600 pl-6">
-//                 <p className="font-semibold text-gray-900">Principal of Vibhuti Vidhya Mandir</p>
-//                 <p className="text-gray-600">Ram Bahadur Yadav</p>
-//               </div>
-//             </div>
-//             <div className="relative">
-//               <img 
-//                 src="/api/placeholder/400/500" 
-//                 alt="Principal Ram Bahadur Yadav" 
-//                 className="w-full h-96 object-cover rounded-lg shadow-lg"
-//               />
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Timeline Section */}
-//       <section className="py-16 bg-white">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <div className="text-center mb-16">
-//             <h3 className="text-3xl font-bold text-gray-900 mb-4">Our Journey Through Time</h3>
-//             <p className="text-lg text-gray-600">Milestones that shaped our educational excellence</p>
-//           </div>
-
-//           <div className="space-y-12">
-//             {timelineEvents.map((event, index) => (
-//               <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8`}>
-//                 <div className="lg:w-1/2">
-//                   <div className="relative">
-//                     <img 
-//                       src={event.image} 
-//                       alt={event.title}
-//                       className="w-full h-64 object-cover rounded-lg shadow-lg"
-//                     />
-//                   </div>
-//                 </div>
-//                 <div className="lg:w-1/2 text-center lg:text-left">
-//                   <div className="inline-flex items-center gap-2 mb-4">
-//                     <Calendar className="w-5 h-5 text-red-600" />
-//                     <span className="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium">
-//                       {event.year}
-//                     </span>
-//                   </div>
-//                   <h4 className="text-2xl font-bold text-gray-900 mb-4">{event.title}</h4>
-//                   <p className="text-gray-600 text-lg leading-relaxed">{event.description}</p>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Stats Section */}
-//       <section className="py-16 bg-gradient-to-r from-red-600 to-red-700">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <div className="grid md:grid-cols-4 gap-8 text-center text-white">
-//             <div>
-//               <div className="flex justify-center mb-4">
-//                 <Users className="w-12 h-12" />
-//               </div>
-//               <div className="text-4xl font-bold mb-2">500+</div>
-//               <div className="text-red-100">Students</div>
-//             </div>
-//             <div>
-//               <div className="flex justify-center mb-4">
-//                 <BookOpen className="w-12 h-12" />
-//               </div>
-//               <div className="text-4xl font-bold mb-2">50+</div>
-//               <div className="text-red-100">Teachers</div>
-//             </div>
-//             <div>
-//               <div className="flex justify-center mb-4">
-//                 <Award className="w-12 h-12" />
-//               </div>
-//               <div className="text-4xl font-bold mb-2">43+</div>
-//               <div className="text-red-100">Years of Excellence</div>
-//             </div>
-//             <div>
-//               <div className="flex justify-center mb-4">
-//                 <MapPin className="w-12 h-12" />
-//               </div>
-//               <div className="text-4xl font-bold mb-2">1</div>
-//               <div className="text-red-100">Campus</div>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
+//   const [historyData, setHistoryData] = useState([]);
+//   const [statisticsData, setStatisticsData] = useState([]);
+//   const [leadershipData, setLeadershipData] = useState([]);
+//   const [newsletterData, setNewsletterData] = useState(null);
+//   const [heroData, setHeroData] = useState(null);
+//   const [missionVision, setMissionVision] = useState(null);
+//   const [coreValues, setCoreValues] = useState(null);
 
 
-//     </div>
-//   );
-// };
+//   // Loading state
+//   const [isLoading, setIsLoading] = useState(true);
 
-// export default AboutUs;
+//   useEffect(() => {
+//     console.log('useEffect triggered');
+//     const fetchData = async () => {
+//       try {
+//         const heroResponse = await fetch(`${BASE_URL}/api/aboutus/hero`);
+//         const missionVisionResponse = await fetch(`${BASE_URL}/api/aboutus/mission-vision`);
+//         const coreValuesResponse = await fetch(`${BASE_URL}/api/aboutus/core-values`);
+//         const historyResponse = await fetch(`${BASE_URL}/api/aboutus/history`);
+//         const statisticsResponse = await fetch(`${BASE_URL}/api/aboutus/statistics`);
+//         const leadershipResponse = await fetch(`${BASE_URL}/api/aboutus/leadership`);
+//         const newsletterResponse = await fetch(`${BASE_URL}/api/aboutus/newsletter`);
+
+//         const hero = await heroResponse.json();
+//         const missionVision = await missionVisionResponse.json();
+//         const coreValues = await coreValuesResponse.json();
+//         const history = await historyResponse.json();
+//         const statistics = await statisticsResponse.json();
+//         const leadership = await leadershipResponse.json();
+//         const newsletter = await newsletterResponse.json();
+
+//         setHeroData(hero);
+//         setMissionVision(missionVision);
+//         setCoreValues(coreValues);
+//         setHistoryData(history);
+//         setStatisticsData(statistics);
+//         setLeadershipData(leadership);
+//         setNewsletterData(newsletter);
+
+//         setIsLoading(false); // Data is loaded
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//         setIsLoading(false);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   // Display loading state
+//   if (isLoading) {
+//     return <div>Loading...</div>;
+//   }
 
 
-// components/AboutAcademy.js
+'use client';
+
+import { useFetchData } from '../../store/hooks/useFetchData';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const AboutAcademy = () => {
+  // Fetch all data using the hook
+  const { data: heroData, error: heroError, loading: heroLoading } = useFetchData('/api/aboutus/hero');
+  const { data: missionVision, error: mvError, loading: mvLoading } = useFetchData('/api/aboutus/mission-vision');
+  const { data: coreValues, error: cvError, loading: cvLoading } = useFetchData('/api/aboutus/core-values');
+  const { data: historyData, error: hError, loading: hLoading } = useFetchData('/api/aboutus/history');
+  const { data: statisticsData, error: sError, loading: sLoading } = useFetchData('/api/aboutus/statistics');
+  const { data: leadershipData, error: lError, loading: lLoading } = useFetchData('/api/aboutus/leadership');
+  const { data: newsletterData, error: nError, loading: nLoading } = useFetchData('/api/aboutus/newsletter');
+
+  // Combine loading and error states
+  const isLoading = heroLoading || mvLoading || cvLoading || hLoading || sLoading || lLoading || nLoading;
+  const error = heroError || mvError || cvError || hError || sError || lError || nError;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+
+
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation Bar */}
-      {/* <nav className="bg-blue-600 text-white py-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-8">
-              <div className="text-xl font-bold">ACADEMY</div>
-              <div className="hidden md:flex space-x-6 text-sm">
-                <Link href="/" className="hover:text-blue-200">Home</Link>
-                <Link href="/about" className="text-orange-400 font-medium">About Us</Link>
-                <Link href="/admissions" className="hover:text-blue-200">Admissions</Link>
-                <Link href="/faculty" className="hover:text-blue-200">Faculty</Link>
-                <Link href="/facilities" className="hover:text-blue-200">Facilities</Link>
-                <Link href="/gallery" className="hover:text-blue-200">Gallery</Link>
-                <Link href="/contact" className="hover:text-blue-200">Contact</Link>
-              </div>
-            </div>
-            <div className="hidden md:flex items-center space-x-4 text-sm">
-              <span>Parent Portal</span>
-              <span>Student Portal</span>
-            </div>
-          </div>
-        </div>
-      </nav> */}
-
       {/* Hero Section */}
-      <section className="relative h-96 bg-cover bg-center" 
+      {/* <section className="relative h-96 bg-cover bg-center" 
                style={{backgroundImage: "url('school.jpg')"}}>
         <div className="absolute inset-0 bg-black bg-opacity-30"></div>
         <div className="relative z-10 flex items-center justify-center h-full">
           <h1 className="text-5xl font-bold text-white">About Academy School</h1>
         </div>
-      </section>
+      </section> */}
 
+      {/* Hero Section */}
+{/* Hero Section */}
+{/* Hero Section */}
+{heroData?.[0]?.background_image && (
+  <section className="relative h-96">
+  <Image
+  src={`http://localhost:9000${heroData[0].background_image}`}
+  alt={heroData[0].title || 'About Academy School'}
+  fill
+  priority
+  unoptimized
+  className="object-cover"
+/>
+    <div className="absolute inset-0 bg-opacity-30"></div>
+    <div className="relative z-10 flex items-center justify-center h-full">
+      <h1 className="text-5xl font-bold text-white">
+        {heroData[0].title || 'About Academy School'}
+      </h1>
+    </div>
+  </section>
+)}
       {/* Mission & Vision Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -617,80 +443,6 @@ const AboutAcademy = () => {
           </p>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-blue-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">ACADEMY SCHOOL</h3>
-              <p className="text-sm text-blue-200">
-                Empowering students and inspiring the future leaders since 1985.
-              </p>
-              <div className="flex space-x-4 mt-4">
-                <a href="#" className="text-blue-200 hover:text-white">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z" clipRule="evenodd"/>
-                  </svg>
-                </a>
-                <a href="#" className="text-blue-200 hover:text-white">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/home" className="text-blue-200 hover:text-white">Home</Link></li>
-                <li><Link href="/about" className="text-blue-200 hover:text-white">About Us</Link></li>
-                <li><Link href="/admissions" className="text-blue-200 hover:text-white">Admissions</Link></li>
-                <li><Link href="/academics" className="text-blue-200 hover:text-white">Academics</Link></li>
-                <li><Link href="/contact" className="text-blue-200 hover:text-white">Contact Us</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/library" className="text-blue-200 hover:text-white">Library</Link></li>
-                <li><Link href="/parent-portal" className="text-blue-200 hover:text-white">Parent Portal</Link></li>
-                <li><Link href="/student-portal" className="text-blue-200 hover:text-white">Student Portal</Link></li>
-                <li><Link href="/calendar" className="text-blue-200 hover:text-white">Academic Calendar</Link></li>
-                <li><Link href="/faq" className="text-blue-200 hover:text-white">FAQ</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold mb-4">Contact Us</h4>
-              <div className="text-sm text-blue-200 space-y-2">
-                <p>123 Education Drive, Academy City</p>
-                <p>NY 12345</p>
-                <p>(555) 123-4567</p>
-                <p>info@academyschool.edu</p>
-                <div className="mt-4">
-                  <p className="font-medium">School Hours:</p>
-                  <p>Monday - Friday: 8:00 AM - 4:30 PM</p>
-                  <p>Saturday: 9:00 AM - 12:00 PM</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-blue-800 pt-8 mt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center text-sm text-blue-200">
-              <p>© 2023 Academy School. All rights reserved.</p>
-              <div className="flex space-x-6 mt-4 md:mt-0">
-                <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
-                <Link href="/terms" className="hover:text-white">Terms of Service</Link>
-                <Link href="/sitemap" className="hover:text-white">Sitemap</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
