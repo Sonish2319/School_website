@@ -71,6 +71,8 @@ import { useFetchData } from '../../store/hooks/useFetchData';
 import Image from 'next/image';
 import Link from 'next/link';
 
+const BASE_URL_MEDIA = 'http://localhost:9000';
+
 const AboutAcademy = () => {
   // Fetch all data using the hook
   const { data: heroData, error: heroError, loading: heroLoading } = useFetchData('/api/aboutus/hero');
@@ -80,6 +82,8 @@ const AboutAcademy = () => {
   const { data: statisticsData, error: sError, loading: sLoading } = useFetchData('/api/aboutus/statistics');
   const { data: leadershipData, error: lError, loading: lLoading } = useFetchData('/api/aboutus/leadership');
   const { data: newsletterData, error: nError, loading: nLoading } = useFetchData('/api/aboutus/newsletter');
+  const { data: cta, error: cError, loading: cLoading } = useFetchData('/api/aboutus/cta');
+
 
   // Combine loading and error states
   const isLoading = heroLoading || mvLoading || cvLoading || hLoading || sLoading || lLoading || nLoading;
@@ -88,7 +92,7 @@ const AboutAcademy = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-
+  const mv = missionVision?.[0] || {};
 
 
   return (
@@ -128,8 +132,8 @@ const AboutAcademy = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-12">Our Mission & Vision</h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Our Mission */}
+          {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
             <div>
               <div className="flex items-center mb-4">
                 <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mr-3">
@@ -146,7 +150,6 @@ const AboutAcademy = () => {
               </p>
             </div>
 
-            {/* Our Vision */}
             <div>
               <div className="flex items-center mb-4">
                 <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3">
@@ -163,10 +166,43 @@ const AboutAcademy = () => {
                 community.
               </p>
             </div>
-          </div>
+          </div> */}
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+  {/* Our Mission */}
+  <div>
+    <div className="flex items-center mb-4">
+      <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mr-3">
+        <i className={`${mv.mission_icon || 'fa-solid fa-check'} text-white text-sm`}></i>
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900">
+        {mv.mission_title || 'Our Mission'}
+      </h3>
+    </div>
+    <p className="text-gray-600 leading-relaxed">
+      {mv.mission_description || 'Mission description goes here...'}
+    </p>
+  </div>
+
+  {/* Our Vision */}
+  <div>
+    <div className="flex items-center mb-4">
+      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+        <i className={`${mv.vision_icon || 'fa-solid fa-eye'} text-white text-sm`}></i>
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900">
+        {mv.vision_title || 'Our Vision'}
+      </h3>
+    </div>
+    <p className="text-gray-600 leading-relaxed">
+      {mv.vision_description || 'Vision description goes here...'}
+    </p>
+  </div>
+</div>
+
 
           {/* Core Values Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,12 +250,34 @@ const AboutAcademy = () => {
                 Upholding honesty, respect, and ethical behavior in all endeavors.
               </p>
             </div>
-          </div>
+          </div> */}
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+  {coreValues?.map((value) => (
+    <div key={value.id} className="text-center">
+      <div
+        className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+        style={{ backgroundColor: value.color || '#bfdbfe' }} // fallback to light blue
+      >
+        <i className={value.icon} style={{ fontSize: '2rem', color: '#2563eb' }}></i>
+      </div>
+      <h4 className="text-lg font-semibold text-gray-900 mb-2">{value.title}</h4>
+      <p className="text-sm text-gray-600">{value.description}</p>
+    </div>
+  ))}
+</div>
+
+
+
+
+
+
+
         </div>
       </section>
 
       {/* History Section */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our History</h2>
@@ -227,10 +285,10 @@ const AboutAcademy = () => {
           </div>
 
           <div className="relative">
-            {/* Timeline line */}
+       
             <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-blue-200"></div>
 
-            {/* Timeline items */}
+   
             <div className="space-y-12">
               <div className="flex items-center">
                 <div className="flex-1 pr-8 text-right">
@@ -290,10 +348,62 @@ const AboutAcademy = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+
+      <section className="py-16">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">Our History</h2>
+      <p className="text-gray-600">A tradition of excellence spanning over three decades.</p>
+    </div>
+
+    <div className="relative">
+      {/* Timeline line */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-blue-200"></div>
+
+      {/* Timeline items */}
+      <div className="space-y-12">
+        {historyData
+          ?.slice() // shallow copy to avoid mutating original array
+          .sort((a, b) => parseInt(a.year) - parseInt(b.year)) // sort ascending by year
+          .map((item, index) => {
+            const isLeft = index % 2 === 0; // alternate sides
+            return (
+              <div key={item.id} className="flex items-center">
+                {isLeft ? (
+                  <>
+                    <div className="flex-1 pr-8 text-right">
+                      <h3 className="text-xl font-semibold text-blue-600 mb-2">{item.year}</h3>
+                      <h4 className="text-lg font-medium text-gray-900 mb-2">{item.title}</h4>
+                      <p className="text-gray-600">{item.description}</p>
+                    </div>
+                    <div className="w-4 h-4 bg-blue-600 rounded-full relative z-10"></div>
+                    <div className="flex-1 pl-8"></div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex-1 pr-8"></div>
+                    <div className="w-4 h-4 bg-blue-600 rounded-full relative z-10"></div>
+                    <div className="flex-1 pl-8">
+                      <h3 className="text-xl font-semibold text-blue-600 mb-2">{item.year}</h3>
+                      <h4 className="text-lg font-medium text-gray-900 mb-2">{item.title}</h4>
+                      <p className="text-gray-600">{item.description}</p>
+                    </div>
+                  </>
+                )}
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
       {/* Statistics Section */}
-      <section className="py-16 bg-gray-50">
+      {/* <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
             Academy School by the Numbers
@@ -326,10 +436,29 @@ const AboutAcademy = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+
+      <section className="py-16 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+      Academy School by the Numbers
+    </h2>
+    
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+      {statisticsData?.map((stat) => (
+        <div key={stat.id} className="text-center">
+          <div className="text-3xl font-bold text-blue-600 mb-2">{stat.value}</div>
+          <div className="text-sm text-gray-600">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Leadership Team Section */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Leadership Team</h2>
@@ -406,20 +535,56 @@ const AboutAcademy = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+      <section className="py-16">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Leadership Team</h2>
+      <p className="text-gray-600">Meet the dedicated professionals who guide our school's mission and vision.</p>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {leadershipData?.map((leader) => (
+        <div key={leader.id} className="text-center">
+          <div className="w-32 h-32 bg-gray-200 rounded-lg mx-auto mb-4 overflow-hidden">
+          <Image
+          src={`${BASE_URL_MEDIA}${leader.image}`}
+          alt={leader.name}
+          width={128}
+          height={128}
+          className="w-full h-full object-cover"
+          unoptimized
+        />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900">{leader.name}</h3>
+          <p className="text-blue-600 text-sm mb-2">{leader.role}</p>
+          <p className="text-gray-600 text-sm">{leader.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* CTA Section */}
       <section className="py-16 bg-blue-600 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Want to Know More?</h2>
-          <p className="text-xl mb-8">
-            Experience Academy School firsthand. Schedule a tour to meet our faculty and see our facilities.
-          </p>
-          <button className="bg-yellow-500 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">
-            Apply Now
-          </button>
-        </div>
-      </section>
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 className="text-3xl font-bold mb-4">{cta?.[0]?.title || 'Want to Know More?'}</h2>
+    <p className="text-xl mb-8">
+      {cta?.[0]?.description || 'Experience Academy School firsthand. Schedule a tour to meet our faculty and see our facilities.'}
+    </p>
+    <a
+      href={cta?.[0]?.link || '#'}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-yellow-500 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors inline-block"
+    >
+      {cta?.[0]?.button_text || 'Apply Now'}
+    </a>
+  </div>
+</section>
+
 
       {/* Newsletter Section */}
       <section className="py-12 bg-gray-100">
