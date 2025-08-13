@@ -1,9 +1,5 @@
 // controllers/aboutus/hero.controller.js
-// const { HeroSection } = require('../../models/aboutus1/herosection');
 
-
-// const { HeroSection } = require('../../models');
-// const db  = require('../../models');
 const db = require('../../models');
 const HeroSection = db.HeroSection;
 

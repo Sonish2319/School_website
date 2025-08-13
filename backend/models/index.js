@@ -30,8 +30,7 @@
 //     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
 //     db[model.name] = model;
 //   });
-
-//   // ✅ Manually register models in subdirectories
+//   //  Manually register models in subdirectories
 // const HeroSection = require('./aboutus1/herosection')(sequelize, Sequelize.DataTypes);
 // db.HeroSection = HeroSection;
 
@@ -112,6 +111,36 @@ db.CTA = CTA;
 // Explicitly load your Newsletter model from subfolder
 const Newsletter = require(path.join(__dirname, 'aboutus1', 'newsletter'))(sequelize, Sequelize.DataTypes);
 db.Newsletter = Newsletter;
+
+
+// Explicitly load your AdmissionHeroSection model from subfolder
+const AdmissionHeroSection = require(path.join(__dirname, 'admission', 'admissionherosection'))(sequelize, Sequelize.DataTypes);
+db.AdmissionHeroSection = AdmissionHeroSection;
+
+// Explicitly load your Admissionfaq model from subfolder
+const Admissionfaq = require(path.join(__dirname, 'admission', 'admissionfaq'))(sequelize, Sequelize.DataTypes);
+db.Admissionfaq = Admissionfaq;
+
+// Explicitly load your Admissioncontact model from subfolder
+const Admissioncontact = require(path.join(__dirname, 'admission', 'admissioncontact'))(sequelize, Sequelize.DataTypes);
+db.Admissioncontact = Admissioncontact;
+
+// Explicitly load your Admissionrequirement model from subfolder
+const Admissionrequirement = require(path.join(__dirname, 'admission', 'admissionrequirement'))(sequelize, Sequelize.DataTypes);
+db.Admissionrequirement = Admissionrequirement;
+
+// Explicitly load your admissiontimeline model from subfolder
+const Admissiontimeline = require(path.join(__dirname, 'admission', 'admissiontimeline'))(sequelize, Sequelize.DataTypes);
+db.Admissiontimeline = Admissiontimeline;
+
+// Explicitly load your Admissionwelcomedirector model from subfolder
+const Admissionwelcomedirector = require(path.join(__dirname, 'admission', 'admissionwelcomedirector'))(sequelize, Sequelize.DataTypes);
+db.Admissionwelcomedirector = Admissionwelcomedirector;
+
+// Explicitly load your Admissionapplicationprocess model from subfolder
+const Admissionapplicationprocess = require(path.join(__dirname, 'admission', 'admissionapplicationprocess'))(sequelize, Sequelize.DataTypes);
+db.Admissionapplicationprocess = Admissionapplicationprocess;
+
 
 
 // Setup associations if any

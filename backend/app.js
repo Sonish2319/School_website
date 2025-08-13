@@ -9,7 +9,9 @@ const admissionRoutes = require('./routes/admissionRoutes');
 const galleryRoutes = require('./routes/galleryRoutes');
 
 
-const aboutusRoutes = require('./routes/aboutus/aboutusRoutes');
+// const aboutusRoutes = require('./routes/aboutus/aboutusRoutes');
+
+//aboutus
 const heroRoutes = require('./routes/aboutus/hero.routes');
 const missionVisionRoutes = require('./routes/aboutus/missionVision.routes');
 const coreValuesRoutes = require('./routes/aboutus/coreValues.routes');
@@ -19,8 +21,14 @@ const leadershipRoutes = require('./routes/aboutus/leadership.routes');
 const ctaRoutes = require('./routes/aboutus/cta.routes');
 const newsletterRoutes = require('./routes/aboutus/newsletter.routes');
 
-
-
+//admission
+const admissionheroRoutes = require('./routes/admission/hero.routes');
+const applicationProcessRoutes = require('./routes/admission/applicationProcess.routes');
+const contactRoutes = require('./routes/admission/contact.routes');
+const faqRoutes = require('./routes/admission/faq.routes');
+const requirementRoutes = require('./routes/admission/requirement.routes');
+const directorRoutes = require('./routes/admission/welcomeDirector.routes');
+const timelineRoutes = require('./routes/admission/timeline.routes');
 
 
 const path = require("path");
@@ -28,7 +36,7 @@ const app = express();
 
 
 const corsOptions = {
-    origin: 'http://localhost:3000', // or 3001 if your frontend runs there
+    origin: 'http://localhost:3000',
     optionsSuccessStatus: 200,
   };
 
@@ -43,7 +51,7 @@ app.get('/api/test', (req, res) => res.send('API working'));
 // Routes
 
 
-// app.use('/api/aboutus', aboutusRoutes);            // central
+// app.use('/api/aboutus', aboutusRoutes);
 app.use('/api/aboutus/hero', heroRoutes);
 app.use('/api/aboutus/mission-vision', missionVisionRoutes);
 app.use('/api/aboutus/core-values', coreValuesRoutes);
@@ -52,6 +60,18 @@ app.use('/api/aboutus/statistics', statisticsRoutes);
 app.use('/api/aboutus/leadership', leadershipRoutes);
 app.use('/api/aboutus/cta', ctaRoutes);
 app.use('/api/aboutus/newsletter', newsletterRoutes);
+
+//admission
+app.use('/api/admission/hero', admissionheroRoutes);
+app.use('/api/admission/applicationProcess', applicationProcessRoutes);
+app.use('/api/admission/contact', contactRoutes);
+app.use('/api/admission/faq', faqRoutes);
+app.use('/api/admission/requirement', requirementRoutes);
+app.use('/api/admission/director', directorRoutes);
+app.use('/api/admission/timeline', timelineRoutes);
+
+
+
 
 
 app.use('/api/users', userRoutes);
