@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   AdmissionApplicationProcess.init({
-    step_number: DataTypes.INTEGER,
+    step_number: DataTypes.STRING,
     title: DataTypes.STRING,
     description: DataTypes.TEXT,
     icon: DataTypes.STRING
