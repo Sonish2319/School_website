@@ -143,6 +143,47 @@ db.Admissionapplicationprocess = Admissionapplicationprocess;
 
 
 
+//fund
+
+// Explicitly load your HeroFunding model from subfolder
+const HeroFunding = require(path.join(__dirname, 'fund', 'fundherosection'))(sequelize, Sequelize.DataTypes);
+db.HeroFunding = HeroFunding;
+
+// Explicitly load your Commitment model from subfolder
+const Commitment = require(path.join(__dirname, 'fund', 'fundcommitment'))(sequelize, Sequelize.DataTypes);
+db.Commitment = Commitment;
+
+// Explicitly load your FinancialAid model from subfolder
+const FinancialAid = require(path.join(__dirname, 'fund', 'fundaid'))(sequelize, Sequelize.DataTypes);
+db.FinancialAid = FinancialAid;
+
+// Explicitly load your FundingFAQ model from subfolder
+const FundingFAQ = require(path.join(__dirname, 'fund', 'fundfaq'))(sequelize, Sequelize.DataTypes);
+db.FundingFAQ = FundingFAQ;
+
+// Explicitly load your FundCta model from subfolder
+const FundCta = require(path.join(__dirname, 'fund', 'fundcta'))(sequelize, Sequelize.DataTypes);
+db.FundCta = FundCta;
+
+// Explicitly load your ImportantDates model from subfolder
+const ImportantDates = require(path.join(__dirname, 'fund', 'funddates'))(sequelize, Sequelize.DataTypes);
+db.ImportantDates = ImportantDates;
+
+// Explicitly load your Scholarship model from subfolder
+const Scholarship = require(path.join(__dirname, 'fund', 'fundmerit'))(sequelize, Sequelize.DataTypes);
+db.Scholarship = Scholarship;
+
+// Explicitly load your PaymentPlan model from subfolder
+const PaymentPlan = require(path.join(__dirname, 'fund', 'fundplans'))(sequelize, Sequelize.DataTypes);
+db.PaymentPlan = PaymentPlan;
+
+// Explicitly load your TuitionFees model from subfolder
+const TuitionFees = require(path.join(__dirname, 'fund', 'fundtution'))(sequelize, Sequelize.DataTypes);
+db.TuitionFees = TuitionFees;
+
+
+
+
 // Setup associations if any
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

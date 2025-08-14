@@ -30,6 +30,18 @@ const requirementRoutes = require('./routes/admission/requirement.routes');
 const directorRoutes = require('./routes/admission/welcomeDirector.routes');
 const timelineRoutes = require('./routes/admission/timeline.routes');
 
+//fund
+const fundheroRoutes = require('./routes/fund/heroFunding.routes');
+const commitmentRoutes = require('./routes/fund/commitment.routes');
+const financeRoutes = require('./routes/fund/financialAid.routes');
+const fundfaqRoutes = require('./routes/fund/fundingFAQ.routes');
+const fundctaRoutes = require('./routes/fund/fundCta.routes');
+const importantRoutes = require('./routes/fund/importantDates.routes');
+const meritRoutes = require('./routes/fund/merit.routes');
+const paymentRoutes = require('./routes/fund/paymentPlan.routes');
+const tutionfeeRoutes = require('./routes/fund/tuitionFees.routes');
+
+
 
 const path = require("path");
 const app = express();
@@ -71,6 +83,15 @@ app.use('/api/admission/director', directorRoutes);
 app.use('/api/admission/timeline', timelineRoutes);
 
 
+app.use('/api/fund/hero', fundheroRoutes);
+app.use('/api/fund/commitment', commitmentRoutes);
+app.use('/api/fund/finance', financeRoutes);
+app.use('/api/fund/faq', fundfaqRoutes);
+app.use('/api/fund/cta', fundctaRoutes);
+app.use('/api/fund/imp', importantRoutes);
+app.use('/api/fund/merit', meritRoutes);
+app.use('/api/fund/payment', paymentRoutes);
+app.use('/api/fund/tutionfee', tutionfeeRoutes);
 
 
 
