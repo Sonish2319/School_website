@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState,useCallback } from "react";
 import { fetchAPI } from "../../utils/api.js";
 const BASE_URL = 'http://localhost:9000';

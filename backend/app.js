@@ -41,6 +41,14 @@ const meritRoutes = require('./routes/fund/merit.routes');
 const paymentRoutes = require('./routes/fund/paymentPlan.routes');
 const tutionfeeRoutes = require('./routes/fund/tuitionFees.routes');
 
+//contact
+
+const ContactheroRoutes = require('./routes/contact/hero.routes');
+const touchRoutes = require('./routes/contact/touch.routes');
+const departmentRoutes = require('./routes/contact/department.routes');
+const visitRoutes = require('./routes/contact/visit.routes');
+const contactfaqRoutes = require('./routes/contact/faq.routes');
+
 
 
 const path = require("path");
@@ -82,7 +90,7 @@ app.use('/api/admission/requirement', requirementRoutes);
 app.use('/api/admission/director', directorRoutes);
 app.use('/api/admission/timeline', timelineRoutes);
 
-
+//fund
 app.use('/api/fund/hero', fundheroRoutes);
 app.use('/api/fund/commitment', commitmentRoutes);
 app.use('/api/fund/finance', financeRoutes);
@@ -92,6 +100,14 @@ app.use('/api/fund/imp', importantRoutes);
 app.use('/api/fund/merit', meritRoutes);
 app.use('/api/fund/payment', paymentRoutes);
 app.use('/api/fund/tutionfee', tutionfeeRoutes);
+
+//contact
+
+app.use('/api/contact/hero', ContactheroRoutes);
+app.use('/api/contact/touch', touchRoutes);
+app.use('/api/contact/department', departmentRoutes);
+app.use('/api/contact/visit', visitRoutes);
+app.use('/api/contact/faq', contactfaqRoutes);
 
 
 

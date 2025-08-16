@@ -182,6 +182,27 @@ const TuitionFees = require(path.join(__dirname, 'fund', 'fundtution'))(sequeliz
 db.TuitionFees = TuitionFees;
 
 
+//contact
+
+// Explicitly load your Hero Contact model from subfolder
+const HeroContact = require(path.join(__dirname, 'contact', 'herocontact'))(sequelize, Sequelize.DataTypes);
+db.HeroContact = HeroContact;
+
+// Explicitly load your Touch model from subfolder
+const TouchContact = require(path.join(__dirname, 'contact', 'touchcontact'))(sequelize, Sequelize.DataTypes);
+db.TouchContact = TouchContact;
+
+// Explicitly load your Department model from subfolder
+const ContactDepartment = require(path.join(__dirname, 'contact', 'departmentcontact'))(sequelize, Sequelize.DataTypes);
+db.ContactDepartment = ContactDepartment;
+
+// Explicitly load your VisitContact model from subfolder
+const VisitContact = require(path.join(__dirname, 'contact', 'visitcontact'))(sequelize, Sequelize.DataTypes);
+db.VisitContact = VisitContact;
+
+// Explicitly load your ContactFaq model from subfolder
+const ContactFaq = require(path.join(__dirname, 'contact', 'faqcontact'))(sequelize, Sequelize.DataTypes);
+db.ContactFaq = ContactFaq;
 
 
 // Setup associations if any
