@@ -1,17 +1,17 @@
 const db = require('../../models');
-const Model = db.Admissionwelcomedirector;
+const Model = db.HeroEvent;
 
-const createItem = async (req, res) => {
+const createHeroContact = async (req, res) => {
   try {
-    const director_image = req.file ? `/uploads/${req.file.filename}` : null;
-    const item = await Model.create({ ...req.body, director_image });
+    const back_image = req.file ? `/uploads/${req.file.filename}` : null;
+    const item = await Model.create({ ...req.body, back_image });
     res.status(201).json(item);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-const getAllItems = async (req, res) => {
+const getAllHeroContact = async (req, res) => {
   try {
     const items = await Model.findAll();
     res.json(items);
@@ -20,7 +20,7 @@ const getAllItems = async (req, res) => {
   }
 };
 
-const getItemById = async (req, res) => {
+const getHeroContactById = async (req, res) => {
   try {
     const item = await Model.findByPk(req.params.id);
     if (!item) return res.status(404).json({ message: 'Not found' });
@@ -30,20 +30,20 @@ const getItemById = async (req, res) => {
   }
 };
 
-const updateItem = async (req, res) => {
+const updateHeroContact = async (req, res) => {
   try {
     const item = await Model.findByPk(req.params.id);
     if (!item) return res.status(404).json({ message: 'Not found' });
 
-    const director_image = req.file ? `/uploads/${req.file.filename}` : item.director_image;
-    await item.update({ ...req.body, director_image });
+    const background_image = req.file ? `/uploads/${req.file.filename}` : item.back_image;
+    await item.update({ ...req.body, background_image });
     res.json(item);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-const deleteItem = async (req, res) => {
+const deleteHeroContact = async (req, res) => {
   try {
     const item = await Model.findByPk(req.params.id);
     if (!item) return res.status(404).json({ message: 'Not found' });
@@ -54,4 +54,4 @@ const deleteItem = async (req, res) => {
   }
 };
 
-module.exports = { createItem, getAllItems, getItemById, updateItem, deleteItem };
+module.exports = { createHeroContact, getAllHeroContact, getHeroContactById, updateHeroContact, deleteHeroContact };

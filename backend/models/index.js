@@ -204,6 +204,25 @@ db.VisitContact = VisitContact;
 const ContactFaq = require(path.join(__dirname, 'contact', 'faqcontact'))(sequelize, Sequelize.DataTypes);
 db.ContactFaq = ContactFaq;
 
+//events  
+
+// Explicitly load your Hero Event model from subfolder
+const HeroEvent = require(path.join(__dirname, 'event', 'eventhero'))(sequelize, Sequelize.DataTypes);
+db.HeroEvent = HeroEvent;
+
+// Explicitly load your UpcommingEvent model from subfolder
+const UpcommingEvent = require(path.join(__dirname, 'event', 'upcomingevent'))(sequelize, Sequelize.DataTypes);
+db.UpcommingEvent = UpcommingEvent;
+
+// Explicitly load your EventSemester model from subfolder
+const EventSemester = require(path.join(__dirname, 'event', 'semester'))(sequelize, Sequelize.DataTypes);
+db.EventSemester = EventSemester;
+
+// Explicitly load your EventCalender model from subfolder
+const EventCalender = require(path.join(__dirname, 'event', 'calendarEvent'))(sequelize, Sequelize.DataTypes);
+db.EventCalender = EventCalender;
+
+
 
 // Setup associations if any
 Object.keys(db).forEach(modelName => {

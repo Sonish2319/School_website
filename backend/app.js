@@ -49,6 +49,12 @@ const departmentRoutes = require('./routes/contact/department.routes');
 const visitRoutes = require('./routes/contact/visit.routes');
 const contactfaqRoutes = require('./routes/contact/faq.routes');
 
+//event
+
+const eventheroRoutes = require('./routes/event/hero.routes');
+const upcommingRoutes = require('./routes/event/upcomming.routes');
+const calenderRoutes = require('./routes/event/calender.routes');
+const semesterRoutes = require('./routes/event/semester.routes');
 
 
 const path = require("path");
@@ -108,6 +114,15 @@ app.use('/api/contact/touch', touchRoutes);
 app.use('/api/contact/department', departmentRoutes);
 app.use('/api/contact/visit', visitRoutes);
 app.use('/api/contact/faq', contactfaqRoutes);
+
+//events
+app.use('/api/event/hero', eventheroRoutes);
+app.use('/api/event/upcomming', upcommingRoutes);
+app.use('/api/event/calender', calenderRoutes);
+app.use('/api/event/semester', semesterRoutes);
+
+
+
 
 
 

@@ -1,6 +1,4 @@
 "use client";
-
-
 import React, { useState } from 'react';
 import { Calendar, Clock, MapPin, Users, Phone, Mail, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
@@ -108,27 +106,6 @@ const EventsCalendarPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      {/* <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
-              <span className="text-2xl font-bold text-blue-600">ACADEMY</span>
-              <span className="ml-2 text-2xl font-light text-orange-500">School</span>
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-gray-900 hover:text-blue-600">Home</a>
-              <a href="#" className="text-gray-900 hover:text-blue-600">About Us</a>
-              <a href="#" className="text-gray-900 hover:text-blue-600">Admissions</a>
-              <a href="#" className="text-gray-900 hover:text-blue-600">Academics</a>
-              <a href="#" className="text-blue-600 border-b-2 border-blue-600">Events</a>
-              <a href="#" className="text-gray-900 hover:text-blue-600">Gallery</a>
-              <a href="#" className="text-gray-900 hover:text-blue-600">Contact</a>
-            </nav>
-          </div>
-        </div>
-      </header> */}
-
       {/* Hero Section */}
       <section className="bg-gray-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -336,78 +313,6 @@ const EventsCalendarPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      {/* <footer className="bg-blue-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center mb-4">
-                <span className="text-2xl font-bold text-blue-400">ACADEMY</span>
-                <span className="ml-2 text-2xl font-light text-orange-400">SCHOOL</span>
-              </div>
-              <p className="text-blue-200">
-                Providing quality education and fostering academic excellence for over 50 years.
-              </p>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-blue-200 hover:text-white">Home</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">About Us</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">Admissions</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">Academics</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">Faculty</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">Gallery</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-blue-200 hover:text-white">Student Portal</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">Parent Portal</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">Academic Calendar</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">School Policies</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">News & Updates</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white">Career Opportunities</a></li>
-              </ul>      
-            </div>
-
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-              <div className="space-y-3">
-                <p className="text-blue-200">123 Education Street, Learning City, LC 12345</p>
-                <div className="flex items-center">
-                  <Phone className="w-4 h-4 mr-2" />
-                  <span className="text-blue-200">(555) 123-4567</span>
-                </div>
-                <div className="flex items-center">
-                  <Mail className="w-4 h-4 mr-2" />
-                  <span className="text-blue-200">info@academyschool.edu</span>
-                </div>
-              </div>
-              
-              <div className="flex space-x-4 mt-6">
-                <Facebook className="w-6 h-6 text-blue-200 hover:text-white cursor-pointer" />
-                <Twitter className="w-6 h-6 text-blue-200 hover:text-white cursor-pointer" />
-                <Instagram className="w-6 h-6 text-blue-200 hover:text-white cursor-pointer" />
-                <Linkedin className="w-6 h-6 text-blue-200 hover:text-white cursor-pointer" />
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-blue-800 mt-8 pt-8 text-center">
-            <p className="text-blue-200">
-              © 2024 Academy School. All rights reserved. | 
-              <a href="#" className="hover:text-white ml-1">Privacy Policy</a> | 
-              <a href="#" className="hover:text-white ml-1">Terms of Service</a> | 
-              <a href="#" className="hover:text-white ml-1">Sitemap</a>
-            </p>
-          </div>
-        </div>
-      </footer> */}
     </div>
   );
 };
