@@ -318,8 +318,6 @@ console.log(upcomming?.[0]?.time);
     <span>{event.location}</span>
   </div>
 </div>
-
-            
             <p className="text-gray-600 mb-4 line-clamp-3">
               {event.description}
             </p>
@@ -335,7 +333,7 @@ console.log(upcomming?.[0]?.time);
 </section>
 
       {/* Academic Calendar */}
-      <section className="bg-gray-50 py-16">
+      {/* <section className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Academic Calendar</h2>
@@ -370,7 +368,48 @@ console.log(upcomming?.[0]?.time);
             </button>
           </div>
         </div>
-      </section>
+      </section> */}
+
+      <section className="bg-gray-50 py-16">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-4xl font-bold text-gray-900 mb-4">Academic Calendar</h2>
+      <p className="text-xl text-gray-600">
+        Important dates for the current school year at Academy School
+      </p>
+    </div>
+
+    <div className="space-y-8">
+      {semester.map((semesters) => (
+        <div key={semesters.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="bg-blue-600 text-white px-6 py-4">
+            <h3 className="text-2xl font-bold">{semesters.semester_name}</h3>
+          </div>
+          <div className="p-6">
+            <div className="space-y-3">
+              {semesters.calendarEvents.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex justify-between items-center py-3 border-b border-gray-200 last:border-b-0"
+                >
+                  <span className="font-medium text-gray-900">{item.date}</span>
+                  <span className="text-gray-600">{item.event}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div className="text-center mt-8">
+      <button className="bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
+        Download Complete Calendar
+      </button>
+    </div>
+  </div>
+</section>
+
 
         {/* Call to Action Section */}
 
@@ -478,9 +517,6 @@ console.log(upcomming?.[0]?.time);
     </div>
   </div>
 </section>
-
-
-
       {/* Stay Updated */}
       <section className="py-12 bg-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

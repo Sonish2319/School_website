@@ -56,6 +56,13 @@ const upcommingRoutes = require('./routes/event/upcomming.routes');
 const calenderRoutes = require('./routes/event/calender.routes');
 const semesterRoutes = require('./routes/event/semester.routes');
 
+//gallery
+
+const galleryheroRoutes = require('./routes/gallery/hero.routes');
+const categoryGalleryRoutes = require('./routes/gallery/category.routes');
+const GalleryGridRoutes = require('./routes/gallery/grid.routes.js');
+
+
 
 const path = require("path");
 const app = express();
@@ -121,6 +128,11 @@ app.use('/api/event/upcomming', upcommingRoutes);
 app.use('/api/event/calender', calenderRoutes);
 app.use('/api/event/semester', semesterRoutes);
 
+//gallery
+
+app.use('/api/gallery/hero', galleryheroRoutes);
+app.use('/api/gallery/category', categoryGalleryRoutes);
+app.use("/api/gallery/photos", GalleryGridRoutes)
 
 
 

@@ -222,6 +222,19 @@ db.EventSemester = EventSemester;
 const EventCalender = require(path.join(__dirname, 'event', 'calendarEvent'))(sequelize, Sequelize.DataTypes);
 db.EventCalender = EventCalender;
 
+//gallery
+
+// Explicitly load your Hero gallery model from subfolder
+const HeroGallery = require(path.join(__dirname, 'gallery', 'herogallery'))(sequelize, Sequelize.DataTypes);
+db.HeroGallery = HeroGallery;
+
+// Explicitly load your Hero gallery model from subfolder
+const CategoryImages = require(path.join(__dirname, 'gallery', 'categoryimage'))(sequelize, Sequelize.DataTypes);
+db.CategoryImages = CategoryImages;
+
+// Explicitly load your Hero gallery model from subfolder
+const GalleryPhoto = require(path.join(__dirname, 'gallery', 'galleryphoto'))(sequelize, Sequelize.DataTypes);
+db.GalleryPhoto = GalleryPhoto;
 
 
 // Setup associations if any
