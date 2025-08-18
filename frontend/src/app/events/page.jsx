@@ -1,9 +1,28 @@
 "use client";
 import React, { useState } from 'react';
 import { Calendar, Clock, MapPin, Users, Phone, Mail, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { useFetchData } from '../../store/hooks/useFetchData';
+import Image from 'next/image';
+const BASE_URL_MEDIA = 'http://localhost:9000';
+
 
 const EventsCalendarPage = () => {
   const [activeTab, setActiveTab] = useState('All Events');
+
+  const { data: hero, error: heroError, loading: heroLoading } = useFetchData('/api/event/hero');
+  const { data: upcomming, error: uError, loading: uLoading } = useFetchData('/api/event/upcomming');
+  const { data: semester, error: sError, loading: sLoading } = useFetchData('/api/event/semester');
+
+  const isLoading = heroLoading  || uLoading || sLoading;
+  const error = heroError  || uError || sError;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  const path = `${BASE_URL_MEDIA}${hero[0].back_image}`;
+  console.log('path', path);
+
+  const heroData = hero?.[0];
 
   const upcomingEvents = [
     {
@@ -102,12 +121,21 @@ const EventsCalendarPage = () => {
     ]
   };
 
-  const tabs = ['All Events', 'Academic', 'Admissions', 'Arts', 'Athletics', 'Community'];
+  // const tabs = ['All Events', 'Academic', 'Admissions', 'Arts', 'Athletics', 'Community'];
+  const allCategories = ['All Events', ...Array.from(new Set(upcomming.map(event => event.category)))];
+
+  // Filter events based on active tab
+const filteredEvents =
+activeTab === 'All Events'
+  ? upcomming
+  : upcomming.filter(event => event.category === activeTab);
+
+console.log(upcomming?.[0]?.time);
 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gray-900 text-white py-20">
+      {/* <section className="bg-gray-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl font-bold mb-6">Events & Calendar</h1>
@@ -116,10 +144,40 @@ const EventsCalendarPage = () => {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
+
+      <section className="relative h-[500px] bg-gray-900">
+      {heroData?.back_image && (
+        <Image
+          src={`${BASE_URL_MEDIA}${heroData.back_image}`}
+          alt={heroData.title || 'Events & Calendar'}
+          fill
+          priority
+          unoptimized
+          className="object-cover"
+        />
+      )}
+
+      {/* overlay */}
+      <div className="absolute inset-0 bg-opacity-60" />
+
+      <div className="relative z-10 flex items-center h-full text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl font-bold mb-6">
+              {heroData?.title || 'Events & Calendar'}
+            </h1>
+            <p className="text-xl text-white/90">
+              {heroData?.sub_text ||
+                'Stay connected with our vibrant school community through our exciting events and important academic dates.'}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
       {/* Navigation Tabs */}
-      <section className="bg-gray-50 py-8">
+      {/* <section className="bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center space-x-6">
             {tabs.map((tab) => (
@@ -137,10 +195,10 @@ const EventsCalendarPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Upcoming Events */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h2>
@@ -192,7 +250,89 @@ const EventsCalendarPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
+
+<section className="bg-gray-50 py-8">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-wrap justify-center space-x-6">
+      {allCategories.map((tab) => (
+        <button
+          key={tab}
+          onClick={() => setActiveTab(tab)}
+          className={`px-6 py-3 rounded-full font-medium transition-colors ${
+            activeTab === tab
+              ? 'bg-blue-600 text-white'
+              : 'bg-white text-gray-700 hover:bg-gray-100'
+          }`}
+        >
+          {tab}
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Upcoming Events */}
+<section className="py-16">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h2>
+      <p className="text-xl text-gray-600">
+        Join us for these exciting events happening at Academy School
+      </p>
+    </div>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {filteredEvents.map((event) => (
+        <div key={event.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+          <img 
+            src={event.image ? `${BASE_URL_MEDIA}${event.image}` : '/api/placeholder/300/200'} 
+            alt={event.title}
+            className="w-full h-48 object-cover"
+          />
+          <div className="p-6">
+            <div className="mb-3">
+              <span className="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                {event.category}
+              </span>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">{event.title}</h3>
+            
+            <div className="space-y-2 mb-4">
+  <div className="flex items-center text-gray-600">
+    <Calendar className="w-4 h-4 mr-2" />
+    <span>
+      {new Date(event.date).toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      })}
+    </span>
+  </div>
+  <div className="flex items-center text-gray-600">
+    <Clock className="w-4 h-4 mr-2" />
+    <span>{event.time}</span>
+  </div>
+  <div className="flex items-center text-gray-600">
+    <MapPin className="w-4 h-4 mr-2" />
+    <span>{event.location}</span>
+  </div>
+</div>
+
+            
+            <p className="text-gray-600 mb-4 line-clamp-3">
+              {event.description}
+            </p>
+            
+            <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+              Event Details
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Academic Calendar */}
       <section className="bg-gray-50 py-16">
@@ -247,7 +387,7 @@ const EventsCalendarPage = () => {
       </section>
 
       {/* Event Registration */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Event Registration</h2>
@@ -290,27 +430,77 @@ const EventsCalendarPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Stay Updated */}
-      <section className="bg-blue-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4">Stay Updated</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Subscribe to our newsletter to receive the latest news, events, and updates from Academy School
-          </p>
-          <div className="max-w-md mx-auto">
-            <div className="flex">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-l-lg text-gray-900"
-              />
-              <button className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-r-lg font-medium transition-colors">
-                Subscribe
+      {/* Event Registration Section */}
+      <section className="py-16">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-4xl font-bold text-gray-900 mb-4">Event Registration</h2>
+      <p className="text-xl text-gray-600">
+        Register for upcoming events. Sign up for advance registration notifications
+      </p>
+    </div>
+
+    <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      {upcomming
+        .filter(event => event.openRegistration)
+        .map(event => {
+          const eventDate = new Date(event.date);
+          const formattedDate = eventDate.toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          });
+
+          return (
+            <div key={event.id} className="bg-white rounded-lg shadow-lg p-6">
+              <div className="flex items-center mb-4">
+                {(event.category === 'Academic' || event.category === 'Admissions') ? (
+                  <Users className="w-6 h-6 text-blue-600 mr-3" />
+                ) : (
+                  <Calendar className="w-6 h-6 text-blue-600 mr-3" />
+                )}
+                <h3 className="text-xl font-bold text-gray-900">{event.title}</h3>
+              </div>
+              <p className="text-gray-600 mb-4">
+                <strong>{`${formattedDate} | ${event.time}`}</strong>
+              </p>
+              <p className="text-gray-600 mb-6">
+                {event.description}
+              </p>
+              <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">
+                {event.button_text || 'Register Now'}
               </button>
             </div>
+          );
+        })}
+    </div>
+  </div>
+</section>
+
+
+
+      {/* Stay Updated */}
+      <section className="py-12 bg-gray-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Stay Updated</h2>
+          <p className="text-gray-600 mb-6">
+            Subscribe to our newsletter to receive the latest news, events, and updates from Academy School.
+          </p>
+          <div className="flex max-w-md mx-auto">
+            <input 
+              type="email" 
+              placeholder="Enter your email"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-r-lg hover:bg-blue-700 transition-colors">
+              Subscribe Now
+            </button>
           </div>
+          <p className="text-xs text-gray-500 mt-4">
+            We respect your privacy. Unsubscribe at any time.
+          </p>
         </div>
       </section>
     </div>
