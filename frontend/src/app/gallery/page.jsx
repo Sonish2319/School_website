@@ -1,55 +1,99 @@
 "use client";
-
 import React, { useState } from 'react';
 import { Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Upload, Calendar, Users, Award, MapPin, Clock } from 'lucide-react';
+import { useFetchData } from '../../store/hooks/useFetchData';
+const BASE_URL_MEDIA = 'http://localhost:9000';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const GalleryPage = () => {
   const [activeFilter, setActiveFilter] = useState('All Photos');
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const filters = ['All Photos', 'Campus', 'Academics', 'Athletics', 'Arts', 'Events'];
+  const { data: hero, error: heroError, loading: heroLoading } = useFetchData('/api/gallery/hero');
+  const { data: category, error: commError, loading: commLoading } = useFetchData('/api/gallery/category');
 
-  const galleryImages = [
-    { id: 1, src: '/api/placeholder/300/200', category: 'Campus', title: 'Campus Life' },
-    { id: 2, src: '/api/placeholder/300/200', category: 'Events', title: 'Graduation Ceremony' },
-    { id: 3, src: '/api/placeholder/300/200', category: 'Academics', title: 'Science Class' },
-    { id: 4, src: '/api/placeholder/300/200', category: 'Athletics', title: 'Basketball Game' },
-    { id: 5, src: '/api/placeholder/300/200', category: 'Arts', title: 'Drama Performance' },
-    { id: 6, src: '/api/placeholder/300/200', category: 'Events', title: 'School Concert' },
-    { id: 7, src: '/api/placeholder/300/200', category: 'Academics', title: 'Lecture Hall' },
-    { id: 8, src: '/api/placeholder/300/200', category: 'Campus', title: 'Student Activities' },
-    { id: 9, src: '/api/placeholder/300/200', category: 'Academics', title: 'Lab Work' },
-    { id: 10, src: '/api/placeholder/300/200', category: 'Campus', title: 'Outdoor Learning' },
-    { id: 11, src: '/api/placeholder/300/200', category: 'Arts', title: 'Art Supplies' },
-    { id: 12, src: '/api/placeholder/300/200', category: 'Campus', title: 'Group Study' }
-  ];
+  const isLoading = heroLoading || commLoading;
+  const error = heroError || commError;
 
-  const featuredCollections = [
-    {
-      id: 1,
-      title: 'Graduation 2023',
-      description: 'Celebrating our seniors as they embark on their next chapter.',
-      image: '/api/placeholder/400/250',
-      photoCount: 45
-    },
-    {
-      id: 2,
-      title: 'Fall Festival 2022',
-      description: 'A day of fun, games, and community building for everyone.',
-      image: '/api/placeholder/400/250',
-      photoCount: 32
-    },
-    {
-      id: 3,
-      title: 'Sports Highlights',
-      description: 'Capturing athletic achievements throughout the year.',
-      image: '/api/placeholder/400/250',
-      photoCount: 78
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  // Filters: 'All Photos' + category titles (no static fallback files)
+  const filters = (() => {
+    if (Array.isArray(category) && category.length > 0) {
+      return ['All Photos', ...category.map((c) => c.title)];
     }
-  ];
+    return ['All Photos'];
+  })();
 
-  const filteredImages = activeFilter === 'All Photos' 
-    ? galleryImages 
+  // Flatten gallery images from category -> photos[*].photos (stringified JSON) (no static placeholders)
+  const galleryImages = (() => {
+    const imgs = [];
+    if (!Array.isArray(category)) return imgs;
+
+    category.forEach((cat) => {
+      if (!Array.isArray(cat.photos)) return;
+      cat.photos.forEach((photoObj) => {
+        let parsed = [];
+        try {
+          parsed = photoObj.photos ? JSON.parse(photoObj.photos) : [];
+        } catch (e) {
+          // if parsing fails and it's already an array, use it
+          if (Array.isArray(photoObj.photos)) parsed = photoObj.photos;
+        }
+
+        if (!Array.isArray(parsed)) return;
+        parsed.forEach((photoPath, idx) => {
+          // ensure photoPath is a string
+          if (!photoPath) return;
+          imgs.push({
+            id: `${cat.id}-${photoObj.id}-${idx}`,
+            src: `${BASE_URL_MEDIA}${photoPath}`,
+            category: cat.title,
+            title: photoObj.feature_title || photoObj.description || cat.title || 'Photo'
+          });
+        });
+      });
+    });
+
+    return imgs;
+  })();
+
+  // Featured collections from categories where isFeatured === true (no static images)
+  const featuredCollections = (() => {
+    if (!Array.isArray(category)) return [];
+
+    return category
+      .filter((c) => c.isFeatured)
+      .map((c) => {
+        let allPhotos = [];
+        if (Array.isArray(c.photos)) {
+          c.photos.forEach((p) => {
+            try {
+              const parsed = p.photos ? JSON.parse(p.photos) : [];
+              if (Array.isArray(parsed)) allPhotos = allPhotos.concat(parsed);
+            } catch (e) {
+              if (Array.isArray(p.photos)) allPhotos = allPhotos.concat(p.photos);
+            }
+          });
+        }
+
+        const firstPhoto = allPhotos.length > 0 ? `${BASE_URL_MEDIA}${allPhotos[0]}` : null;
+        const firstPhotoObj = Array.isArray(c.photos) && c.photos[0] ? c.photos[0] : null;
+
+        return {
+          id: c.id,
+          title: (firstPhotoObj && firstPhotoObj.feature_title) || c.title || 'Collection',
+          description: (firstPhotoObj && firstPhotoObj.description) || '',
+          image: firstPhoto, // may be null if no photos
+          photoCount: allPhotos.length
+        };
+      });
+  })();
+
+  const filteredImages = activeFilter === 'All Photos'
+    ? galleryImages
     : galleryImages.filter(img => img.category === activeFilter);
 
   return (
@@ -57,18 +101,27 @@ const GalleryPage = () => {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-500 py-20">
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-60"
-          style={{
-            backgroundImage: "url('/api/placeholder/1200/600')"
-          }}
-        ></div>
+
+        {/* render hero background only if API provides it (no static fallback) */}
+        {hero?.[0]?.back_image && (
+          <Image
+            src={`${BASE_URL_MEDIA}${hero[0].back_image}`}
+            alt={hero[0].title || 'Gallery Background'}
+            fill
+            priority
+            unoptimized
+            className="absolute inset-0 object-cover object-center opacity-60"
+          />
+        )}
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold mb-6">Photo Gallery</h1>
+            <h1 className="text-5xl font-bold mb-6">
+              {hero?.[0]?.title || 'Photo Gallery'}
+            </h1>
             <p className="text-xl text-white/90">
-              Explore life at Academy School through our collection of photos showcasing our 
-              vibrant community, activities, arts, and special events.
+              {hero?.[0]?.sub_text || `Explore life at Academy School through our collection of photos showcasing our 
+            vibrant community, activities, arts, and special events.`}
             </p>
           </div>
         </div>
@@ -100,7 +153,7 @@ const GalleryPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredImages.map((image) => (
-              <div 
+              <div
                 key={image.id}
                 className="group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
                 onClick={() => setSelectedImage(image)}
@@ -112,7 +165,7 @@ const GalleryPage = () => {
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300">
+                <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300">
                   <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <h3 className="font-semibold">{image.title}</h3>
                     <p className="text-sm text-gray-300">{image.category}</p>
@@ -137,19 +190,24 @@ const GalleryPage = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {featuredCollections.map((collection) => (
               <div key={collection.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <img
-                  src={collection.image}
-                  alt={collection.title}
-                  className="w-full h-48 object-cover"
-                />
+                {/* render image only if API provided one (no static fallback) */}
+                {collection.image && (
+                  <img
+                    src={collection.image}
+                    alt={collection.title}
+                    className="w-full h-48 object-cover"
+                  />
+                )}
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{collection.title}</h3>
                   <p className="text-gray-600 mb-4">{collection.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-500">{collection.photoCount} photos</span>
-                    <button className="text-blue-600 hover:text-blue-700 font-medium">
-                      View Album →
-                    </button>
+                    <Link href={`/gallery/album/${collection.id}`}>
+                <button className="text-blue-600 hover:text-blue-700 font-medium">
+                  View Album →
+                </button>
+              </Link>
                   </div>
                 </div>
               </div>
@@ -175,11 +233,7 @@ const GalleryPage = () => {
                 </button>
               </div>
               <div className="hidden md:block">
-                <img
-                  src="/api/placeholder/500/400"
-                  alt="Student with camera"
-                  className="w-full h-full object-cover"
-                />
+                {/* removed static placeholder image per request */}
               </div>
             </div>
           </div>
@@ -208,6 +262,7 @@ const GalleryPage = () => {
           </div>
         </div>
       </section>
+
       {/* Image Modal */}
       {selectedImage && (
         <div 
