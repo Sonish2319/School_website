@@ -1,7 +1,7 @@
 // routes/aboutus/cta.routes.js
 const express = require('express');
 const router = express.Router();
-const controller = require('../../controllers/aboutus/cta.controller');
+const controller = require('../../controllers/home/cta.controller');
 
 router.post('/', controller.createCTA);
 router.get('/', controller.getAllCTAs);

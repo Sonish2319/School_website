@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const galleryUpload = require('../../middleware/galleryUpload');
-const controller = require('../../controllers/gallery/galleryphoto.controller');
+const upload = require('../../middleware/upload');
+const controller = require('../../controllers/home/gallery.controller');
 
-// Upload multiple images (limit 10 files max, adjust as needed)
-router.post('/', galleryUpload.array('photos', 10), controller.createGalleryPhoto);
-router.get('/', controller.getAllGalleryPhotos);
-router.get('/:id', controller.getGalleryPhotoById);
-router.put('/:id', galleryUpload.array('photos', 10), controller.updateGalleryPhoto);
-router.delete('/:id', controller.deleteGalleryPhoto);
+router.post('/', upload.single('images'), controller.createHomeGallery);
+router.get('/', controller.getAllHomeGallery);
+router.get('/:id', controller.getHomeGalleryById);
+router.put('/:id', upload.single('images'), controller.updateHomeGallery);
+router.delete('/:id', controller.deleteHomeGallery);
 
 module.exports = router;

@@ -242,6 +242,27 @@ db.GalleryPhoto = GalleryPhoto;
 const HeroHome = require(path.join(__dirname, 'home', 'homehero'))(sequelize, Sequelize.DataTypes);
 db.HeroHome = HeroHome;
 
+// Explicitly load your Hero home model from subfolder
+const HomeSchoolSection = require(path.join(__dirname, 'home', 'homeschoolsection'))(sequelize, Sequelize.DataTypes);
+db.HomeSchoolSection = HomeSchoolSection;
+
+// Explicitly load your Hero home model from subfolder
+const HomeStudent = require(path.join(__dirname, 'home', 'homestudentlife'))(sequelize, Sequelize.DataTypes);
+db.HomeStudent = HomeStudent;
+
+// Explicitly load your Hero home model from subfolder
+const HomeVoice = require(path.join(__dirname, 'home', 'homevoice'))(sequelize, Sequelize.DataTypes);
+db.HomeVoice = HomeVoice;
+
+// Explicitly load your CTA model from subfolder
+const CTAHome = require(path.join(__dirname, 'home', 'homecta'))(sequelize, Sequelize.DataTypes);
+db.CTAHome = CTAHome;
+
+// Explicitly load your CTA model from subfolder
+const HomeGallery = require(path.join(__dirname, 'home', 'homegallery'))(sequelize, Sequelize.DataTypes);
+db.HomeGallery = HomeGallery;
+
+
 
 
 // Setup associations if any

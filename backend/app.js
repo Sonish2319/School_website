@@ -154,8 +154,6 @@ app.use('/api/home/voice', HomeVoiceRoutes);
 
 
 
-
-
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 // app.use('/api/aboutus', aboutusRoutes);
