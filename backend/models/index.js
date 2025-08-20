@@ -262,6 +262,11 @@ db.CTAHome = CTAHome;
 const HomeGallery = require(path.join(__dirname, 'home', 'homegallery'))(sequelize, Sequelize.DataTypes);
 db.HomeGallery = HomeGallery;
 
+// Explicitly load your CTA model from subfolder
+const ImageHome = require(path.join(__dirname, 'home', 'heroimage'))(sequelize, Sequelize.DataTypes);
+db.ImageHome = ImageHome;
+
+
 
 
 

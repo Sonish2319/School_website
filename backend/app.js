@@ -71,6 +71,8 @@ const HomeGalleryRoutes = require('./routes/home/gallery.routes.js');
 const HomeSchoolRoutes = require('./routes/home/homeschool.routes.js');
 const HomeStudentRoutes = require('./routes/home/homeStudent.routes.js');
 const HomeVoiceRoutes = require('./routes/home/voice.routes.js');
+const HomeImageRoutes = require('./routes/home/image.routes.js');
+
 
 
 const path = require("path");
@@ -151,6 +153,8 @@ app.use('/api/home/gallery', HomeGalleryRoutes);
 app.use('/api/home/homeschool', HomeSchoolRoutes);
 app.use('/api/home/homeStudent', HomeStudentRoutes);
 app.use('/api/home/voice', HomeVoiceRoutes);
+app.use('/api/home/image', HomeImageRoutes);
+
 
 
 
