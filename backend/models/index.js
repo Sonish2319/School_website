@@ -236,6 +236,13 @@ db.CategoryImages = CategoryImages;
 const GalleryPhoto = require(path.join(__dirname, 'gallery', 'galleryphoto'))(sequelize, Sequelize.DataTypes);
 db.GalleryPhoto = GalleryPhoto;
 
+//home
+
+// Explicitly load your Hero home model from subfolder
+const HeroHome = require(path.join(__dirname, 'home', 'homehero'))(sequelize, Sequelize.DataTypes);
+db.HeroHome = HeroHome;
+
+
 
 // Setup associations if any
 Object.keys(db).forEach(modelName => {

@@ -63,6 +63,15 @@ const categoryGalleryRoutes = require('./routes/gallery/category.routes');
 const GalleryGridRoutes = require('./routes/gallery/grid.routes.js');
 
 
+//home
+
+const HomeHeroRoutes = require('./routes/home/hero.routes.js');
+const HomeCtaRoutes = require('./routes/home/cta.routes.js');
+const HomeGalleryRoutes = require('./routes/home/gallery.routes.js');
+const HomeSchoolRoutes = require('./routes/home/homeschool.routes.js');
+const HomeStudentRoutes = require('./routes/home/homeStudent.routes.js');
+const HomeVoiceRoutes = require('./routes/home/voice.routes.js');
+
 
 const path = require("path");
 const app = express();
@@ -133,6 +142,15 @@ app.use('/api/event/semester', semesterRoutes);
 app.use('/api/gallery/hero', galleryheroRoutes);
 app.use('/api/gallery/category', categoryGalleryRoutes);
 app.use("/api/gallery/photos", GalleryGridRoutes)
+
+//home
+
+app.use('/api/home/hero', HomeHeroRoutes);
+app.use('/api/home/cta', HomeCtaRoutes);
+app.use('/api/home/gallery', HomeGalleryRoutes);
+app.use('/api/home/homeschool', HomeSchoolRoutes);
+app.use('/api/home/homeStudent', HomeStudentRoutes);
+app.use('/api/home/voice', HomeVoiceRoutes);
 
 
 
