@@ -1,27 +1,19 @@
-// components/SchoolSections.js
+'use client';
 import Image from 'next/image';
+import { useFetchData } from '../store/hooks/useFetchData';
+import Link from 'next/link';
+
+const BASE_URL_MEDIA = 'http://localhost:9000';
+const DEFAULT_IMAGE = '/default-school.jpg'; // fallback image
 
 const SchoolSections = () => {
-  const sections = [
-    {
-      title: "Primary School",
-      subtitle: "Grades 1 to 5",
-      image: "/primary-school.jpg",
-      description: "Building strong foundations through interactive learning and creative exploration."
-    },
-    {
-      title: "Secondary School",
-      subtitle: "Grades 6 to 10",
-      image: "/secondary-school.jpg",
-      description: "Developing critical thinking and preparing students for advanced academics."
-    },
-    {
-      title: "Primary School",
-      subtitle: "Grades 1 to 5",
-      image: "/primary-school-2.jpg",
-      description: "Nurturing young minds with care, creativity, and comprehensive education."
-    }
-  ];
+  const { data: schoolData, error: heroError, loading: heroLoading } = useFetchData('/api/home/homeschool');
+
+  const isLoading = heroLoading;
+  const error = heroError;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <section className="py-16 bg-white">
@@ -35,19 +27,19 @@ const SchoolSections = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {sections.map((section, index) => (
+          {schoolData?.map((section, index) => (
             <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div className="relative h-64">
                 <Image
-                  src={section.image}
+                  src={section.image ? `${BASE_URL_MEDIA}${section.image}` : DEFAULT_IMAGE}
                   alt={section.title}
                   fill
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-xl font-bold">{section.title}</h3>
-                  <p className="text-sm opacity-90">{section.subtitle}</p>
+                  <h3 className="text-xl font-bold">{section.subtitle}</h3>
+                  <p className="text-sm opacity-90">{section.title}</p>
                 </div>
               </div>
               <div className="p-6">

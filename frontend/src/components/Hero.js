@@ -1,16 +1,36 @@
+'use client';
 import Image from 'next/image';
+import { useFetchData } from '../store/hooks/useFetchData';
+import Link from 'next/link';
+
+const BASE_URL_MEDIA = 'http://localhost:9000';
+
+
 
 const HeroSection = () => {
+
+  const { data: heroData, error: heroError, loading: heroLoading } = useFetchData('/api/home/image');
+  const { data: welcome, error: wError, loading: wLoading } = useFetchData('/api/home/hero');
+
+
+  const isLoading = heroLoading || wLoading; ;
+  const error = heroError || wError;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  
+
   return (
     <section className="bg-gradient-to-r from-blue-50 to-cyan-50">
       {/* Banner */}
       <div className="relative w-full h-[450px] md:h-[550px]">
         <Image
-          src="/school.jpg"
+          src={`${BASE_URL_MEDIA}${heroData[0].image}`}
           alt="Vibhuti Vidhya Mandir School Building"
-          layout="fill"
-          objectFit="cover"
+          fill
           priority
+          unoptimized
+          className="object-cover"
         />
       </div>
 
@@ -35,36 +55,25 @@ const HeroSection = () => {
 
           {/* Right: Feature Grid (2x2) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {welcome?.map((feature) => (
             <Feature
-              title="Academic Excellence"
-              description="We offer a strong academic foundation led by experienced educators."
-              icon="🎓"
+              key={feature.id}
+              title={feature.feature_title}
+              description={feature.feature_description}
+              icon={feature.feature_icon}
             />
-            <Feature
-              title="Character Building"
-              description="We nurture values like empathy, leadership, and integrity."
-              icon="🏅"
-            />
-            <Feature
-              title="Global Citizenship"
-              description="We celebrate cultural diversity and global awareness."
-              icon="🌍"
-            />
-            <Feature
-              title="Global Citizenship"
-              description="We celebrate cultural diversity and global awareness."
-              icon="💖"
-            />
-          </div>
+          ))}
+        </div>
         </div>
       </div>
     </section>
   );
 };
-
 const Feature = ({ title, description, icon }) => (
   <div className="flex items-start space-x-4">
-    <div className="text-3xl">{icon}</div>
+    <div className="text-3xl">
+      <i className={icon}></i>
+    </div>
     <div>
       <h3 className="font-semibold text-gray-900 mb-1">{title}</h3>
       <p className="text-sm text-gray-600">{description}</p>
