@@ -1,24 +1,22 @@
-// components/VoicesSection.js
+'use client';
 import Image from 'next/image';
+import { useFetchData } from '../store/hooks/useFetchData';
+import Link from 'next/link';
+
+const BASE_URL_MEDIA = 'http://localhost:9000';
 
 const VoicesSection = () => {
-  const voices = [
-    {
-      title: "PARENTS",
-      image: "/parents-voice.jpg",
-      description: "Hear from parents about their experience with our school community and their children's growth."
-    },
-    {
-      title: "TEACHERS", 
-      image: "/teachers-voice.jpg",
-      description: "Our dedicated educators share their passion for teaching and commitment to student success."
-    },
-    {
-      title: "STUDENTS",
-      image: "/students-voice.jpg", 
-      description: "Current students share their experiences, achievements, and what makes our school special."
-    }
-  ];
+  const {
+    data: voicesData,
+    error: voicesError,
+    loading: voicesLoading,
+  } = useFetchData('/api/home/voice');
+
+  const isLoading = voicesLoading;
+  const error = voicesError;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <section className="py-16 bg-gray-50">
@@ -32,11 +30,14 @@ const VoicesSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {voices.map((voice, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+          {voicesData?.map((voice, index) => (
+            <div
+              key={voice.id || index}
+              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+            >
               <div className="relative h-64">
                 <Image
-                  src={voice.image}
+                  src={`${BASE_URL_MEDIA}${voice.image}`}
                   alt={voice.title}
                   fill
                   className="object-cover"
