@@ -44,4 +44,14 @@ const updateStatistic = async (req, res) => {
   }
 };
 
-module.exports = { createStatistic, getAllStatistics, getStatisticById, updateStatistic };
+const deleteStatistic = async (req, res) => {
+  try{
+    const item = await Statistic.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Not found' });
+    await item.destroy();
+    res.status(204).send();
+  }catch(err){
+    res.status(500).json({ message: err.message });
+  }
+}
+module.exports = { createStatistic, getAllStatistics, getStatisticById, updateStatistic, deleteStatistic };

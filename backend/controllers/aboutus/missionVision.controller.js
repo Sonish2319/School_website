@@ -144,4 +144,15 @@ const update = async (req, res) => {
   }
 };
 
-module.exports = { createMissionVision, getAll, getById, update };
+const deleteMissionVision = async (req, res) => {
+  try{
+    const item = await MissionVision.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Not found' });
+    await item.destroy();
+    res.status(204).send();
+  }catch(err){
+    res.status(500).json({ message: err.message });
+  }
+}
+
+module.exports = { createMissionVision, getAll, getById, update,deleteMissionVision };

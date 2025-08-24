@@ -7,5 +7,7 @@ router.post('/', controller.createStatistic);
 router.get('/', controller.getAllStatistics);
 router.get('/:id', controller.getStatisticById);
 router.put('/:id', controller.updateStatistic);
+router.delete('/:id', controller.deleteStatistic);
+
 
 module.exports = router;

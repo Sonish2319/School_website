@@ -47,4 +47,15 @@ const updateLeader = async (req, res) => {
   }
 };
 
-module.exports = { createLeader, getAllLeaders, getLeaderById, updateLeader };
+const deleteLeader = async (req, res) => {
+  try{
+    const item = await LeadershipTeam.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Not found' });
+    await item.destroy();
+    res.status(204).send();
+  }catch(err){
+    res.status(500).json({ message: err.message });
+  }
+}
+
+module.exports = { createLeader, getAllLeaders, getLeaderById, updateLeader, deleteLeader };

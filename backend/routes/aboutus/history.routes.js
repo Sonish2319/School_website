@@ -7,5 +7,6 @@ router.post('/', controller.createHistory);
 router.get('/', controller.getAllHistories);
 router.get('/:id', controller.getHistoryById);
 router.put('/:id', controller.updateHistory);
+router.delete('/:id', controller.deleteHistory);
 
 module.exports = router;

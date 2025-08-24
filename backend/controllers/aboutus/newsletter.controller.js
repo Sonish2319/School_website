@@ -44,4 +44,15 @@ const updateNewsletter = async (req, res) => {
   }
 };
 
-module.exports = { createNewsletter, getAllNewsletters, getNewsletterById, updateNewsletter };
+const deleteNewsletter = async (req, res) => {
+  try{
+    const item = await Newsletter.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Not found' });
+    await item.destroy();
+    res.status(204).send();
+  }catch(err){
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { createNewsletter, getAllNewsletters, getNewsletterById, updateNewsletter, deleteNewsletter };

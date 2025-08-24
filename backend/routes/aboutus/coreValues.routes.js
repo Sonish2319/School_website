@@ -21,5 +21,7 @@ router.post('/', controller.createCoreValue);
 router.get('/', controller.getAllCoreValues);
 router.get('/:id', controller.getCoreValueById);
 router.put('/:id', controller.updateCoreValue);
+router.delete('/:id', controller.deleteCoreValue);
+
 
 module.exports = router;

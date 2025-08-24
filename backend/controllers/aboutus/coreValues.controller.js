@@ -112,9 +112,21 @@ const updateCoreValue = async (req, res) => {
   }
 };
 
+const deleteCoreValue = async (req, res) => {
+  try{
+    const item = await CoreValue.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Not found' });
+    await item.destroy();
+    res.status(204).send();
+  }catch(err){
+    res.status(500).json({ message: err.message });
+  }
+}
+
 module.exports = {
   createCoreValue,
   getAllCoreValues,
   getCoreValueById,
-  updateCoreValue
+  updateCoreValue,
+  deleteCoreValue
 };

@@ -8,5 +8,6 @@ router.post('/', upload.single('image'), controller.createLeader);
 router.get('/', controller.getAllLeaders);
 router.get('/:id', controller.getLeaderById);
 router.put('/:id', upload.single('image'), controller.updateLeader);
+router.delete('/:id', controller.deleteLeader);
 
 module.exports = router;
