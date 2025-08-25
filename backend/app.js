@@ -79,10 +79,16 @@ const path = require("path");
 const app = express();
 
 
+// const corsOptions = {
+//     origin: 'http://localhost:3000',
+//     optionsSuccessStatus: 200,
+//   };
+
 const corsOptions = {
-    origin: 'http://localhost:3000',
-    optionsSuccessStatus: 200,
-  };
+  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  optionsSuccessStatus: 200,
+};
+
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -117,13 +123,13 @@ app.use('/api/admission/timeline', timelineRoutes);
 //fund
 app.use('/api/fund/hero', fundheroRoutes);
 app.use('/api/fund/commitment', commitmentRoutes);
-app.use('/api/fund/finance', financeRoutes);
+app.use('/api/fund/financialaid', financeRoutes);
 app.use('/api/fund/faq', fundfaqRoutes);
 app.use('/api/fund/cta', fundctaRoutes);
-app.use('/api/fund/imp', importantRoutes);
+app.use('/api/fund/importantdates', importantRoutes);
 app.use('/api/fund/merit', meritRoutes);
 app.use('/api/fund/payment', paymentRoutes);
-app.use('/api/fund/tutionfee', tutionfeeRoutes);
+app.use('/api/fund/tuition', tutionfeeRoutes);
 
 //contact
 
