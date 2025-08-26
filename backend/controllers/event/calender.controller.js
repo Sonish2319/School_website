@@ -1,5 +1,6 @@
 const db = require('../../models');
 const EventCalender = db.EventCalender;
+const Semester = db.EventSemester;
 
 const createCalender = async (req, res) => {
   try {
@@ -11,14 +12,31 @@ const createCalender = async (req, res) => {
   }
 };
 
+// const getAllCalenders = async (req, res) => {
+//   try {
+//     const requirements = await EventCalender.findAll();
+//     res.json(requirements);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 const getAllCalenders = async (req, res) => {
   try {
-    const requirements = await EventCalender.findAll();
-    res.json(requirements);
+    const calenders = await EventCalender.findAll({
+      include: {
+        model: Semester,
+        as: "semester", // ensure this alias matches your association
+        attributes: ["id", "semester_name"],
+      },
+    });
+
+    res.json(calenders);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 const getCalenderById = async (req, res) => {
   try {

@@ -35,8 +35,8 @@ const updateHeroContact = async (req, res) => {
     const item = await Model.findByPk(req.params.id);
     if (!item) return res.status(404).json({ message: 'Not found' });
 
-    const background_image = req.file ? `/uploads/${req.file.filename}` : item.back_image;
-    await item.update({ ...req.body, background_image });
+    const back_image = req.file ? `/uploads/${req.file.filename}` : item.back_image;
+    await item.update({ ...req.body, back_image });
     res.json(item);
   } catch (err) {
     res.status(500).json({ message: err.message });

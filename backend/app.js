@@ -141,7 +141,7 @@ app.use('/api/contact/faq', contactfaqRoutes);
 
 //events
 app.use('/api/event/hero', eventheroRoutes);
-app.use('/api/event/upcomming', upcommingRoutes);
+app.use('/api/event/upcoming', upcommingRoutes);
 app.use('/api/event/calender', calenderRoutes);
 app.use('/api/event/semester', semesterRoutes);
 
