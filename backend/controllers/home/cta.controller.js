@@ -42,4 +42,15 @@ const updateCTA = async (req, res) => {
   }
 };
 
-module.exports = { createCTA, getAllCTAs, getCTAById, updateCTA };
+const deleteCTA = async (req, res) => {
+  try {
+    const item = await CTA.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Not found' });
+    await item.destroy();
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+module.exports = { createCTA, getAllCTAs, getCTAById, updateCTA, deleteCTA };

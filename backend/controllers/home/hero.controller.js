@@ -3,8 +3,8 @@ const Model = db.HeroHome;
 
 const createHeroHome = async (req, res) => {
   try {
-    const hero_image = req.file ? `/uploads/${req.file.filename}` : null;
-    const item = await Model.create({ ...req.body, hero_image });
+    const { feature_title, feature_icon, feature_description } = req.body;
+    const item = await Model.create({ feature_title, feature_icon, feature_description });
     res.status(201).json(item);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -35,8 +35,7 @@ const updateHeroHome = async (req, res) => {
     const item = await Model.findByPk(req.params.id);
     if (!item) return res.status(404).json({ message: 'Not found' });
 
-    const hero_image = req.file ? `/uploads/${req.file.filename}` : item.hero_image;
-    await item.update({ ...req.body, hero_image });
+    await item.update(req.body);
     res.json(item);
   } catch (err) {
     res.status(500).json({ message: err.message });
